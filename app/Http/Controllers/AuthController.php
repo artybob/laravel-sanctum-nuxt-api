@@ -38,12 +38,6 @@ class AuthController extends Controller
 
     public function getUsers(Request $request)
     {
-        if (Auth::attempt(['email' => 'johndoe@example.com', 'password' => 'password'])) {
-            $request->session()->regenerate();
-            dd('cool');
-        }
-
-
         return response()->json([
             'data' => User::all()->toArray(),
         ]);
