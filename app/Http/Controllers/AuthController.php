@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,13 +28,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-    }
-
-    public function me(Request $request)
-    {
-        return response()->json([
-            'data' => $request->user(),
-        ]);
     }
 
     public function getUsers(Request $request)
