@@ -21,6 +21,24 @@ class AuthController extends Controller
 
     }
 
+    public function register(Request $request)
+    {
+        return response()->json([
+            'message' => 'adsdad',
+        ], 401);
+
+        $this->validate(request(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required'
+        ]);
+
+        $user = User::create(request(['name', 'email', 'password']));
+
+        auth()->login($user);
+
+    }
+
     public function logout(Request $request)
     {
         Auth::logout();
