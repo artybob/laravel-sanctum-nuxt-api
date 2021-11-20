@@ -23,19 +23,19 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        return response()->json([
-            'message' => 'adsdad',
-        ], 401);
-
         $this->validate(request(), [
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required'
         ]);
 
-        $user = User::create(request(['name', 'email', 'password']));
+        $user = User::create([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => bcrypt(request('password')),
+        ]);
 
-        auth()->login($user);
+        $user->assignRole('user');
 
     }
 
