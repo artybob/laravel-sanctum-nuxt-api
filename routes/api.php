@@ -20,3 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->post('/createUser', 'AdminController@createUser');
+
+Route::middleware('auth:sanctum')->get('/getRoles', 'AdminController@getRoles');
+Route::middleware('auth:sanctum')->get('/getUsers', 'AdminController@getUsers');

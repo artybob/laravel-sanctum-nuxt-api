@@ -48,10 +48,4 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
     }
 
-    public function getUsers(Request $request)
-    {
-        return response()->json([
-            'data' => User::all()->toArray(),
-        ]);
-    }
 }
