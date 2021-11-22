@@ -35,4 +35,9 @@ class AdminController extends Controller
     {
         return User::with('roles')->get();
     }
+
+    public function removeUser(Request $request)
+    {
+        User::findorfail($request->user_id)->delete();
+    }
 }

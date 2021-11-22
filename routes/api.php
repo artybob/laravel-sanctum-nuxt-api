@@ -15,11 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return new UserResource($request->user());
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/user', function (Request $request) {
+        return new UserResource($request->user());
+    });
+
+    Route::post('/createUser', 'AdminController@createUser');
+    Route::post('/removeUser', 'AdminController@removeUser');
+
+    Route::get('/getRoles', 'AdminController@getRoles');
+    Route::get('/getUsers', 'AdminController@getUsers');
 });
 
-Route::middleware('auth:sanctum')->post('/createUser', 'AdminController@createUser');
 
-Route::middleware('auth:sanctum')->get('/getRoles', 'AdminController@getRoles');
-Route::middleware('auth:sanctum')->get('/getUsers', 'AdminController@getUsers');
+
