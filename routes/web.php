@@ -17,6 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('messages', 'ChatsController@fetchMessages');
+Route::post('messages', 'ChatsController@sendMessage');
+
 Route::post('login', 'AuthController@login');
 Route::post('register', 'AuthController@register');
 Route::post('logout', 'AuthController@logout');
