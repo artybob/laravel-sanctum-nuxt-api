@@ -11,6 +11,10 @@ class Message extends Model
 
     protected $fillable = ['message'];
 
+    protected $casts = [
+        'created_at' => 'date:Y-m-d',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

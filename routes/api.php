@@ -22,9 +22,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/createUser', 'AdminController@createUser');
     Route::post('/removeUser', 'AdminController@removeUser');
+    Route::post('/changeAvatar', 'AdminController@changeAvatar');
 
     Route::get('/getRoles', 'AdminController@getRoles');
     Route::get('/getUsers', 'AdminController@getUsers');
+
+    Route::get('messages', 'ChatsController@fetchMessages');
+    Route::post('messages', 'ChatsController@sendMessage');
 });
 
 
