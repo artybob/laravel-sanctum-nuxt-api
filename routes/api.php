@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/user', function (Request $request) {
+Route::middleware(['auth:api'])->group(function () {
+    Route::get('user', function (Request $request) {
         return new UserResource($request->user());
     });
 
@@ -29,7 +29,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('messages', 'ChatsController@fetchMessages');
     Route::post('messages', 'ChatsController@sendMessage');
+
+    Route::post('logout', 'PassportController@logout');
+
 });
+
+Route::post('login', 'PassportController@login');
+Route::post('register', 'PassportController@register');
+
+
 
 
 

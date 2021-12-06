@@ -12,6 +12,7 @@
         "laravel/passport": "^10.2",
         "laravel/sanctum": "^2.12",
         "laravel/tinker": "^2.5",
+        "laravel/ui": "^3",
         "pusher/pusher-php-server": "^7.0",
         "spatie/laravel-permission": "^5.4"
     },
