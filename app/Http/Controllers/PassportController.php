@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Services\PassportService as Ps;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Passport\RefreshToken;
-use Laravel\Passport\Token;
 
 class PassportController extends Controller
 {
@@ -25,17 +23,9 @@ class PassportController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password)
-        ]);
+        $token = Ps::register($request->email, $request->name, $request->password);
 
-        $user->assignRole('user');
-
-        $token = $user->createToken('test')->accessToken;
-
-        return response()->json(['token' => $token], 200);
+        return $this->apiAuthResponse($token);
     }
 
     /**
@@ -46,17 +36,9 @@ class PassportController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = [
-            'email' => $request->email,
-            'password' => $request->password
-        ];
+        $token = Ps::login($request->email, $request->password);
 
-        if (auth()->attempt($credentials)) {
-            $token = auth()->user()->createToken('test')->accessToken;
-            return response()->json(['token' => $token], 200);
-        } else {
-            return response()->json(['error' => 'UnAuthorised'], 401);
-        }
+        return $this->apiAuthResponse($token);
     }
 
     /**
@@ -74,6 +56,17 @@ class PassportController extends Controller
         $user = Auth::user()->token();
         $user->revoke();
 
-        return 'logged out';
+        return response()->json(['status' => 'logged out']);
     }
+
+    private function apiAuthResponse($token)
+    {
+        if ($token) {
+            return response()->json(['token' => $token], 200);
+        } else {
+            return response()->json(['error' => 'UnAuthorised'], 401);
+        }
+    }
+
+
 }

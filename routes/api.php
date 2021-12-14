@@ -34,9 +34,11 @@ Route::middleware(['auth:api'])->group(function () {
 
 });
 
+Route::get('/login/{service}', 'SocialLoginController@redirect');
+Route::get('/login/{service}/callback', 'SocialLoginController@callback');
+
 Route::post('login', 'PassportController@login');
 Route::post('register', 'PassportController@register');
-
 
 
 
