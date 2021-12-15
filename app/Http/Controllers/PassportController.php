@@ -36,9 +36,6 @@ class PassportController extends Controller
      */
     public function login(Request $request)
     {
-        return 'asdads';
-        return $request->token;
-
         $token = Ps::login($request->email, $request->password, $request->token);
 
         return $this->apiAuthResponse($token);

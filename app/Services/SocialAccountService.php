@@ -32,6 +32,7 @@ class SocialAccountService
                 $user = User::create([
                     'email' => $providerUser->getEmail(),
                     'name' => $providerUser->getName(),
+                    'password' => bcrypt(env('SOCIALITE_PASSWORD')),
                 ]);
 
                 $user->assignRole('user');

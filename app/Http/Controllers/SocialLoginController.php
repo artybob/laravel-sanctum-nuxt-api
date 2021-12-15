@@ -36,7 +36,9 @@ class SocialLoginController extends Controller
 //        } else {
 //            $email = $serviceUser->getEmail();
 //        }
-
-        return redirect(env('CLIENT_BASE_URL').'/social-callback?token='.$token);
+            dd(env('CLIENT_BASE_URL'));
+//        return redirect(env('CLIENT_BASE_URL') . '/');
+//
+//        return redirect(env('CLIENT_BASE_URL') . '/social-callback?token='.$token);
     }
 }
