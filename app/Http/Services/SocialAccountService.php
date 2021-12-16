@@ -3,7 +3,6 @@
 namespace App\Http\Services;
 
 use App\Models\SocialAccount;
-
 use App\Models\User;
 use Laravel\Socialite\Contracts\User as ProviderUser;
 
@@ -32,7 +31,6 @@ class SocialAccountService
                 $user = User::create([
                     'email' => $providerUser->getEmail(),
                     'name' => $providerUser->getName(),
-                    'password' => bcrypt(env('SOCIALITE_PASSWORD')),
                 ]);
 
                 $user->assignRole('user');

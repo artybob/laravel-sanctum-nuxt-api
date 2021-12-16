@@ -31,3 +31,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('messages', 'ChatsController@sendMessage');
 });
 
+Route::get('/login/{service}', 'SocialLoginController@redirect');
+Route::get('/login/{service}/callback', 'SocialLoginController@callback');

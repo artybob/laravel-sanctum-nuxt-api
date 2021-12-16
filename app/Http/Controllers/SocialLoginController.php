@@ -16,6 +16,7 @@ class SocialLoginController extends Controller
 
     public function redirect($service)
     {
+        return $service;
         //http://localhost:8000/api/login/facebook
         return Socialite::driver($service)->redirect();
     }
@@ -27,10 +28,12 @@ class SocialLoginController extends Controller
             $user = $SocialAccountService->createOrGetUser(Socialite::driver($service)->stateless()->user(), $service);
 
         } catch (\Exception $e) {
-            return redirect(env('CLIENT_BASE_URL') . '/social-callback?error=Unable to login using ' . $service . '. Please try again' . '&origin=login');
+            return redirect(env('CLIENT_BASE_URL') . '/api/social-login?error=Unable to login using ' . $service . '. Please try again' . '&origin=login');
         }
 
-        $token = $user->createToken('name')->accessToken;
+        dd('test');
+        //$token = $user->createToken('name')->accessToken;
+        $token = '';
 
 //        if ((env('RETRIEVE_UNVERIFIED_SOCIAL_EMAIL') == 0) && ($service != 'google')) {
 //            $email = $serviceUser->getId() . '@' . $service . '.local';
@@ -38,6 +41,6 @@ class SocialLoginController extends Controller
 //            $email = $serviceUser->getEmail();
 //        }
 
-        return redirect(env('CLIENT_BASE_URL') . '/social-callback?token=' . $token);
+//        return redirect(env('CLIENT_BASE_URL') . '/api/social-login?token=' . $token);
     }
 }
