@@ -31,5 +31,3 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('messages', 'ChatsController@sendMessage');
 });
 
-
-

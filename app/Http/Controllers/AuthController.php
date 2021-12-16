@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Http\Services\AuthService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,14 +10,7 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        if (Auth::attempt($request->only('email', 'password'))) {
-            $request->session()->regenerate();
-        } else {
-            return response()->json([
-                'message' => 'Invalid login details',
-            ], 401);
-        }
-
+        AuthService::login($request->email, $request->password);
     }
 
     public function register(Request $request)
@@ -28,14 +21,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        $user = User::create([
-            'name' => request('name'),
-            'email' => request('email'),
-            'password' => bcrypt(request('password')),
-        ]);
-
-        $user->assignRole('user');
-
+        AuthService::register($request->email, $request->name, $request->password, $request->role);
     }
 
     public function logout(Request $request)
