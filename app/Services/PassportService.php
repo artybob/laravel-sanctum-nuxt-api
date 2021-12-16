@@ -24,15 +24,19 @@ class PassportService
     public static function login($email, $password, $token = '')
     {
         //if token auth by id else usual
-        if ($token) {
-//            $loginRequest = LoginRequest::where('token', $token);
+//        if ($token) {
+////            $loginRequest = LoginRequest::where('token', $token);
+////
+////            Auth::loginUsingId($loginRequest->user_id);
+//        } else {
 //
-//            Auth::loginUsingId($loginRequest->user_id);
-        } else {
+//            if (Auth::attempt(['email' => $email, 'password' => $password])) {
+//                $token = Auth::user()->createToken('name')->accessToken;
+//            }
+//        }
 
-            if (Auth::attempt(['email' => $email, 'password' => $password])) {
-                $token = Auth::user()->createToken('name')->accessToken;
-            }
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            $token = Auth::user()->createToken('name')->accessToken;
         }
 
         return $token;
