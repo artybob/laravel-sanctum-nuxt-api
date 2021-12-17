@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\SocialServices;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -16,9 +17,9 @@ class SocialMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $services = ['facebook', 'vk', 'google'];
         $enabledServices = [];
-        foreach ($services as $service) {
+
+        foreach (SocialServices::AVAILABLE_SERVICES as $service) {
             if (config('services.' . $service)) {
                 $enabledServices[] = $service;
             }

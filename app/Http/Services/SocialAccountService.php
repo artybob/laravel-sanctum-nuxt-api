@@ -17,32 +17,23 @@ class SocialAccountService
 
         if ($account) {
             return $account->user;
-        } else {
-
-            $account = new SocialAccount([
-                'provider_user_id' => $providerUser->getId(),
-                'provider' => $service
-            ]);
-
-            $user = User::whereEmail($providerUser->getEmail())->first();
-
-            if (!$user) {
-
-                $user = User::create([
-                    'email' => $providerUser->getEmail(),
-                    'name' => $providerUser->getName(),
-                    'avatar'=> $providerUser->getAvatar() ?? 'no-avatar.png',
-                ]);
-
-                $user->assignRole('user');
-            }
-
-            $account->user()->associate($user);
-            $account->save();
-
-            return $user;
-
         }
+
+        $account = new SocialAccount([
+            'provider_user_id' => $providerUser->getId(),
+            'provider' => $service
+        ]);
+
+        $user = User::whereEmail($providerUser->getEmail())->first();
+
+        if (!$user) {
+            AuthService::register($providerUser->getEmail(), $providerUser->getName(), '', '');
+        }
+
+        $account->user()->associate($user);
+        $account->save();
+
+        return $user;
 
     }
 }

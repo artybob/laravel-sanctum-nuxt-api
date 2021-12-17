@@ -26,10 +26,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('/getRoles', 'AdminController@getRoles');
     Route::get('/getUsers', 'AdminController@getUsers');
-
-    Route::get('messages', 'ChatsController@fetchMessages');
     Route::post('messages', 'ChatsController@sendMessage');
 });
+
+Route::get('messages', 'ChatsController@fetchMessages');
 
 Route::get('/login/{service}', 'SocialLoginController@redirect');
 Route::get('/login/{service}/callback', 'SocialLoginController@callback');
