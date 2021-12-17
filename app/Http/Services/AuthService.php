@@ -18,6 +18,8 @@ class AuthService
         ]);
 
         $user->assignRole($role);
+
+        return $user;
     }
 
     public static function login($email, $password)

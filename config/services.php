@@ -42,4 +42,10 @@ return [
         'redirect'      => env('GOOGLE_REDIRECT')
     ],
 
+    'vkontakte' => [
+        'client_id'     => env('VK_CLIENT_ID'),
+        'client_secret' => env('VK_CLIENT_SECRET'),
+        'redirect'      => env('VK_REDIRECT')
+    ],
+
 ];
