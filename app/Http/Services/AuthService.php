@@ -13,6 +13,7 @@ class AuthService
         $user = User::create([
             'name' => $name,
             'email' => $email,
+            'avatar'=> 'no-avatar.png',
             'password' => bcrypt($password)
         ]);
 
