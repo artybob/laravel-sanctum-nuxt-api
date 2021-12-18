@@ -21,7 +21,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        AuthService::register($request->email, $request->name, $request->password, $request->role);
+        return AuthService::register($request->email, $request->name, $request->password, $request->role);
     }
 
     public function logout(Request $request)

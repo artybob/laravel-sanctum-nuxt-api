@@ -19,7 +19,7 @@ class AuthService
 
         $user->assignRole($role);
 
-        return $user;
+        return ['user' => $user];
     }
 
     public static function login($email, $password)
