@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\AuthService;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -17,13 +18,7 @@ class AdminController extends Controller
             'password' => 'required'
         ]);
 
-        $user = User::create([
-            'name' => request('name'),
-            'email' => request('email'),
-            'password' => bcrypt(request('password')),
-        ]);
-
-        $user->assignRole($request->role);
+        AuthService::register($request->email, $request->name, $request->password, $request->role, '');
     }
 
     public function getRoles()

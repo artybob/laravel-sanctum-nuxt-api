@@ -15,25 +15,28 @@ class SocialAccountService
             ->whereProviderUserId($providerUser->getId())
             ->first();
 
-        if ($account) {
-            return $account->user;
-        } else {
-
+        if(!$account) {
             $account = new SocialAccount([
                 'provider_user_id' => $providerUser->getId(),
                 'provider' => $service
             ]);
-
-
-            $user = User::whereEmail($providerUser->getEmail())->first();
-
-            if (!$user) {
-                $user = AuthService::register($providerUser->getEmail(), $providerUser->getName(), '', '');
-            }
-
-            $account->user()->associate($user);
-            $account->save();
         }
+
+        if ($account->user) {
+            return $account->user;
+        }
+
+        $user = User::whereEmail($providerUser->getEmail())->first();
+
+        if (!$user) {
+            $user = AuthService::register($providerUser->getEmail(), $providerUser->getName(), '', '', '');
+            //hardcode bug?
+            $user['user']->AssignRole('user');
+            //
+        }
+
+        $account->user()->associate($user);
+        $account->save();
 
         return $user;
 

@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthService
 {
-    public static function register($email, $name, $password = '', $role = 'user')
+    public static function register($email, $name, $password = '', $role = 'user', $avatar = 'no-avatar.png')
     {
         $user = User::create([
             'name' => $name,
             'email' => $email,
-            'avatar'=> 'no-avatar.png',
+            'avatar'=> $avatar,
             'password' => $password ?? bcrypt($password)
         ]);
 
