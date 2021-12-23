@@ -33,3 +33,7 @@ Route::get('messages', 'ChatsController@fetchMessages');
 
 Route::get('/login/{service}', 'SocialLoginController@redirect');
 Route::get('/login/{service}/callback', 'SocialLoginController@callback');
+
+Route::prefix('streams')->group(function () {
+    Route::get('data', 'StreamsController@getAllStreamsData');
+});
