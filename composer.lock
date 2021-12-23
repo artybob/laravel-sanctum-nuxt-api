@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be8070d56d1f6155b9c3c9a352abad07",
+    "content-hash": "e80f1081b03679822f67d1bb901ea063",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7146,6 +7146,10 @@
                 "testing",
                 "xunit"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/phpunit/issues",
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.10"
+            },
             "funding": [
                 {
                     "url": "https://phpunit.de/donate.html",
