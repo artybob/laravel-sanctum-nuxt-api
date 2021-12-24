@@ -3,8 +3,10 @@
 namespace App\Http\Services\StreamPlaces;
 
 use App\Http\Resources\StreamCollection;
+use App\Models\StreamingService;
 use App\Models\StreamingServicesData;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\DB;
 
 class Twitch extends AbstractStreamService
 {
@@ -31,13 +33,15 @@ class Twitch extends AbstractStreamService
         if (!$result) {
             return 'no data from api';
         }
-        StreamingServicesData::truncate();
+        DB::table('streaming_services_data')->delete();
+
+        $service = StreamingService::firstOrCreate(['name' => 'twitch'],
+            ['name' => 'twitch', 'logo' => 'https://logos-download.com/wp-content/uploads/2016/05/Twitch_logo.png']);
 
         foreach ($result['data'] as $stream) {
+            $newThumbnailUrl = str_replace(["{width}", "{height}"], "400", $stream['thumbnail_url']);
 
-            $newThumbnailUrl = str_replace(["{width}", "{height}"], "200", $stream['thumbnail_url']);
-
-            StreamingServicesData::create([
+            $service->data()->create([
                 'service_id' => 1,
                 'user_name' => $stream['user_name'],
                 'user_login' => $stream['user_login'],
@@ -45,12 +49,12 @@ class Twitch extends AbstractStreamService
                 'viewer_count' => $stream['viewer_count'],
                 'game_name' => $stream['game_name'],
                 'title' => $stream['title'],
-                'started_at' =>  \Carbon\Carbon::parse($stream['started_at'])->format('d/m/Y'),
+                'started_at' => \Carbon\Carbon::parse($stream['started_at'])->format('H:i:s'),
                 'thumbnail_url' => $newThumbnailUrl,
             ]);
         }
 
-        return StreamingServicesData::all();
+        return StreamingService::with('data')->get();
     }
 
     public static function makeStreamsCache()
