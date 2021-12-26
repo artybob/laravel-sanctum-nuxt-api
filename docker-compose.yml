@@ -45,6 +45,13 @@ services:
             - ./docker-compose/nginx:/etc/nginx/conf.d/
         networks:
             - lns
+    redis:
+        image: redis:6.2
+        container_name: lns-redis
+        ports:
+            - "6382:6379"
+        networks:
+            - lns
 
 networks:
     lns:

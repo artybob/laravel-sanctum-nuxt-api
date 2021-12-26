@@ -16,7 +16,6 @@ class Twitch extends AbstractStreamService
 
     public static function getStreams()
     {
-
         $headers =
             [
                 'headers' => [
@@ -54,7 +53,7 @@ class Twitch extends AbstractStreamService
             ]);
         }
 
-        return StreamingService::with('data')->get();
+        return 'ok';
     }
 
     public static function makeStreamsCache()
