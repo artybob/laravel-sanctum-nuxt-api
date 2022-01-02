@@ -22,7 +22,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         return new UserResource($request->user());
     });
 
-    Route::post('/createUser', 'AdminController@createUser')->middleware('verified');
+    Route::post('/createUser', 'AdminController@createUser');
     Route::post('/removeUser', 'AdminController@removeUser');
     Route::post('/changeAvatar', 'AdminController@changeAvatar');
 
@@ -41,6 +41,9 @@ Route::prefix('streams')->group(function () {
 });
 
 //email verification
+
+//->middleware('verified')
+
 // Resend link to verify email
 Route::post('/email/verify/resend', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
