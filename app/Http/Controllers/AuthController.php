@@ -21,7 +21,19 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        return AuthService::register($request->email, $request->name, $request->password, $request->role);
+        $user = AuthService::register($request->email, $request->name, $request->password, $request->role);
+
+        //send thanks mail
+        $details = [
+            'title' => 'Hello ' .$request->name,
+            'body' => 'Thanks for register'
+        ];
+
+        if($request->email) {
+            \Illuminate\Support\Facades\Mail::to($request->email)->send(new \App\Mail\NewUser($details));
+        }
+        return $user;
+
     }
 
     public function logout(Request $request)
@@ -31,5 +43,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
     }
+    // $loginUrl = env('CLIENT_BASE_URL', 'http://localhost:3000') . '/login?status= ';
 
 }

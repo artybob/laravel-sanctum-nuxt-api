@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Models\User;
 use Illuminate\Http\Client\Request;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 
 class AuthService
@@ -14,10 +15,13 @@ class AuthService
             'name' => $name,
             'email' => $email,
             'avatar'=> $avatar,
-            'password' => $password ?? bcrypt($password)
+            'password' => bcrypt($password)
         ]);
 
         $user->assignRole($role);
+
+        //email conf
+        event(new Registered($user));
 
         return ['user' => $user];
     }
