@@ -33,6 +33,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::get('messages', 'ChatsController@fetchMessages');
 
+// articles elasticsearch
+Route::get('articles', 'ArticlesController@getArticles');
+Route::get('articles/search', 'ArticlesController@search');
+
 Route::get('/login/{service}', 'SocialLoginController@redirect');
 Route::get('/login/{service}/callback', 'SocialLoginController@callback');
 
