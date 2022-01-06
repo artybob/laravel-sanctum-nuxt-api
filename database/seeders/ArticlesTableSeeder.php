@@ -15,6 +15,6 @@ class ArticlesTableSeeder extends Seeder
     public function run()
     {
         Article::truncate();
-        Article::factory()->times(50)->create();
+        Article::factory()->times(100)->create();
     }
 }

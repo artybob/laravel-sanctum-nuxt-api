@@ -26,6 +26,7 @@ class ElasticsearchRepository implements ArticlesRepository
         return $this->elasticsearch->search([
             'index' => $model->getSearchIndex(),
             'type' => $model->getSearchType(),
+            "size" => 10000,
             'body' => [
                 'query' => [
                     'multi_match' => [
