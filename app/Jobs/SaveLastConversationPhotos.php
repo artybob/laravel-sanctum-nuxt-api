@@ -20,10 +20,9 @@ class SaveLastConversationPhotos implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(VkController $vkController)
+    public function __construct()
     {
         // need to be service
-        $this->vkController = $vkController;
     }
 
     /**
@@ -33,6 +32,7 @@ class SaveLastConversationPhotos implements ShouldQueue
      */
     public function handle()
     {
-        $this->vkController->saveLastConversationPhotos();
+        $c = new VkController;
+        $c->saveLastConversationPhotos();
     }
 }

@@ -38,6 +38,7 @@ class SaveLastConversationPhotos extends Command
     public function handle()
     {
         \App\Jobs\SaveLastConversationPhotos::dispatch();
+
         return Command::SUCCESS;
     }
 }
